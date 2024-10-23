@@ -3,6 +3,7 @@
 import numpy as np
 import model
 import solver
+import matplotlib.pyplot as plt
 
 def run_simulation():
     # Parameters
@@ -11,7 +12,7 @@ def run_simulation():
     d = 0.01      # damping coefficient
 
     # initial conditions
-    iniStates = np.array([0.0, 0.0])
+    iniStates = np.array([1.0, 0.0])
 
     # Time parameters
     t_final = 10.0
@@ -22,7 +23,7 @@ def run_simulation():
     myModel = model.SingleMassOscillator(iniStates, m, k, d)
 
     # Create a solver
-    mySolver = solver.SolverExplicit()
+    mySolver = solver.SolverExplicit(myModel)
 
     # Arrays to store time and position for plotting
     times = np.linspace(0, t_final, num_steps)
@@ -35,9 +36,14 @@ def run_simulation():
         positions[step] = myModel.get_state()[0]
         
         # Take a time step
-        mySolver.step(t, model, dt)
+        mySolver.step(t, dt)
 
     # Plotting the result
-
+        plt.plot(times , positions)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Position (m)')
+    plt.title('Damped Harmonic Oscillator')
+    plt.grid(True)
+    plt.show()
 if __name__ == "__main__":
     run_simulation()

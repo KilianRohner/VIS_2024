@@ -8,15 +8,15 @@ import matplotlib.pyplot as plt
 def run_simulation():
     # Parameters
     m = 1.0      # mass (kg)
-    k = 100.0     # stiffness (N/m)
-    d = 0.01      # damping coefficient
+    k = 10.0     # stiffness (N/m)
+    d = 0.25      # damping coefficient
 
     # initial conditions
     iniStates = np.array([1.0, 0.0])
 
     # Time parameters
     t_final = 10.0
-    dt = 0.001
+    dt = 0.01
     num_steps = int(t_final / dt)
 
     # Create a model (SingleMassOscillator)
@@ -39,7 +39,7 @@ def run_simulation():
         mySolver.step(t, dt)
 
     # Plotting the result
-        plt.plot(times , positions)
+    plt.plot(times , positions)
     plt.xlabel('Time (s)')
     plt.ylabel('Position (m)')
     plt.title('Damped Harmonic Oscillator')

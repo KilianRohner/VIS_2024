@@ -5,8 +5,8 @@ position: 0.000000, 0.000000, 0.000000
 x_axis: 1.00000000, 0.00000000, 0.00000000
 y_axis: 0.00000000, 1.00000000, 0.00000000
 z_axis:0.00000000, 0.00000000, 1.00000000
-color: 200 200 200   200
-transparency: 50
+color: 254 146 146   255
+transparency: 0
 initial velocity: 0.000000, 0.000000, 0.000000
 initial omega: 0.000000, 0.000000, 0.000000
 consider vel inertia forces: 0
@@ -24,8 +24,8 @@ position: 25.000000, 0.000000, 10.000000
 x_axis: 1.00000000, 0.00000000, 0.00000000
 y_axis: 0.00000000, 1.00000000, 0.00000000
 z_axis:0.00000000, 0.00000000, 1.00000000
-color: 200 200 200   200
-transparency: 50
+color: 170 230 228   255
+transparency: 0
 initial velocity: 0.000000, 0.000000, 0.000000
 initial omega: 0.000000, 0.000000, 0.000000
 consider vel inertia forces: 0
@@ -65,6 +65,48 @@ position: 25.000000, 0.000000, 0.000000
 x_axis: 1.00000000, 0.00000000, 0.00000000
 y_axis: 0.00000000, 1.00000000, 0.00000000
 z_axis: 0.00000000, 0.00000000, 1.00000000
+
+$FORCE_GenericForce:
+name: new_force_0
+body1: new_body_0
+body2: new_body_1
+PointOfApplication_Body1: 10.000000, 20.000000, 30.000000
+PointOfApplication_Body2: 0.000000, 0.000000, 0.000000
+mode: Space fixed
+direction: -1.000000, 0.000000, 0.000000
+ForceExpression: sin(2*pi/PARVAL[periodDuration]*SIMTIME[]) 
+
+$FORCE_GenericTorque:
+name: new_torque_1
+body1: new_body_1
+body2: new_body_0
+mode: Body fixed
+direction: 0.000000, 1.000000, 0.000000
+TorqueExpression: STEP[SIMTIME[],0,0,1,1,cosine]
+
+$DATAOBJECT_PARAMETER:
+name: periodDuration
+InitialValue: 1.000000
+
+$MEASURE:
+name: new_measure_0
+body1: new_body_0
+body2: GROUND
+type: displacement
+component: 1
+location_body1: 0.000000, 0.000000, 0.000000
+location_body2: 0.000000, 0.000000, 0.000000
+use_initial_value: 1
+
+$MEASURE:
+name: new_measure_1
+body1: new_body_1
+body2: new_body_0
+type: angle
+vector_body1: 1.000000, 0.000000, 0.000000
+vector1_body2: 1.000000, 0.000000, 0.000000
+vector2_body2: 0.000000, 1.000000, 0.000000
+use_initial_value: 1
 
 $SOLVER:
 SimulationTimeBegin: 0.000000
